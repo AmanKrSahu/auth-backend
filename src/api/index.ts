@@ -6,6 +6,7 @@ import cors from 'cors';
 import express from 'express';
 
 import { errorHandler } from './v1/middlewares/error-handler.middleware';
+import passport from './v1/middlewares/passport.middleware';
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(
 );
 
 app.use(cookieParser());
+app.use(passport.initialize());
 
 app.use(errorHandler);
 
