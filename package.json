@@ -34,7 +34,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
-    "@prisma/client": "^6.16.2",
+    "@prisma/client": "7.1.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -75,7 +75,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
-    "prisma": "^6.16.2",
+    "prisma": "7.1.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
