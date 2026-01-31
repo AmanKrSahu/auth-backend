@@ -1,5 +1,6 @@
 import type { CurrentUserData } from '@core/common/interface/user.interface';
 import { AppError, NotFoundException } from '@core/common/utils/app-error';
+import { sanitizeUser } from '@core/common/utils/sanitize';
 import { HTTPSTATUS } from '@core/config/http.config';
 import prisma from '@core/database/prisma';
 
@@ -16,7 +17,7 @@ export class UserService {
         throw new NotFoundException('User not found');
       }
 
-      return user;
+      return sanitizeUser(user);
     } catch (error) {
       if (error instanceof AppError) {
         throw error;

@@ -13,6 +13,22 @@ export class SessionController {
     this.sessionService = sessionService;
   }
 
+  /**
+   * @openapi
+   * /session/:
+   *   get:
+   *     tags:
+   *       - Session
+   *     summary: Get all active sessions
+   *     description: Retrieves a list of all active sessions for the current user.
+   *     responses:
+   *       200:
+   *         description: Sessions retrieved successfully
+   *       401:
+   *         description: User not authenticated
+   *       500:
+   *         description: Internal server error
+   */
   @AsyncHandler
   public getSessions = async (req: Request, res: Response) => {
     const userId = (req.user as User)?.id;
@@ -37,6 +53,30 @@ export class SessionController {
     });
   };
 
+  /**
+   * @openapi
+   * /session/{sessionId}:
+   *   get:
+   *     tags:
+   *       - Session
+   *     summary: Get session by ID
+   *     description: Retrieves details of a specific session.
+   *     parameters:
+   *       - in: path
+   *         name: sessionId
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Session retrieved successfully
+   *       401:
+   *         description: User not authenticated
+   *       404:
+   *         description: Session not found
+   *       500:
+   *         description: Internal server error
+   */
   @AsyncHandler
   public getSessionById = async (req: Request, res: Response) => {
     const sessionId = req.params.sessionId as string;
@@ -65,6 +105,22 @@ export class SessionController {
     });
   };
 
+  /**
+   * @openapi
+   * /session/:
+   *   delete:
+   *     tags:
+   *       - Session
+   *     summary: Revoke all other sessions
+   *     description: Revokes all active sessions except the current one.
+   *     responses:
+   *       200:
+   *         description: All other sessions revoked successfully
+   *       401:
+   *         description: User not authenticated
+   *       500:
+   *         description: Internal server error
+   */
   @AsyncHandler
   public revokeSessions = async (req: Request, res: Response) => {
     const userId = (req.user as User)?.id;
@@ -82,6 +138,32 @@ export class SessionController {
     });
   };
 
+  /**
+   * @openapi
+   * /session/{sessionId}:
+   *   delete:
+   *     tags:
+   *       - Session
+   *     summary: Revoke session by ID
+   *     description: Revokes a specific session.
+   *     parameters:
+   *       - in: path
+   *         name: sessionId
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Session revoked successfully
+   *       400:
+   *         description: Cannot revoke current session
+   *       401:
+   *         description: User not authenticated
+   *       404:
+   *         description: Session not found
+   *       500:
+   *         description: Internal server error
+   */
   @AsyncHandler
   public revokeSessionById = async (req: Request, res: Response) => {
     const userId = (req.user as User)?.id;

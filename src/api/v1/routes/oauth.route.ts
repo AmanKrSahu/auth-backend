@@ -6,6 +6,22 @@ import { oauthController } from '../modules/oauth.module';
 
 const oauthRoutes = Router();
 
+/**
+ * @openapi
+ * /oauth/google:
+ *   get:
+ *     tags:
+ *       - OAuth
+ *     summary: Initiate Google OAuth
+ *     description: Redirects the user to Google for authentication.
+ *     responses:
+ *       302:
+ *         description: Redirects to Google
+ *       400:
+ *         description: Bad request
+ *       500:
+ *         description: Internal server error
+ */
 oauthRoutes.get(
   '/google',
   passport.authenticate('google', {

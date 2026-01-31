@@ -2,12 +2,14 @@
 import 'dotenv/config';
 
 import { config } from '@core/config/app.config';
+import { swaggerSpec } from '@core/config/swagger.config';
 import redis from '@core/database/redis';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import swaggerUi from 'swagger-ui-express';
 
 import { errorHandler } from './v1/middlewares/error-handler.middleware';
 import passport from './v1/middlewares/passport.middleware';
@@ -30,7 +32,11 @@ app.use(
       if (!origin) return callback(null, true);
 
       // Check if the origin is in the allowed list
-      if (config.FRONTEND_ORIGINS.includes(origin)) {
+      if (
+        config.FRONTEND_ORIGINS.includes(origin) ||
+        origin.includes(config.DOMAIN_URL) ||
+        origin.includes(`http://localhost:${config.PORT}`)
+      ) {
         return callback(null, true);
       }
 
@@ -47,6 +53,8 @@ app.use(cookieParser());
 app.use(passport.initialize());
 
 app.use(BASE_PATH, routes);
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(errorHandler);
 
