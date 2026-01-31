@@ -36,6 +36,7 @@ import {
 } from '@core/common/utils/jwt';
 import { checkForNewDevice, checkRateLimit } from '@core/common/utils/metadata';
 import { deleteCache, getCache, incrementCache, setCache } from '@core/common/utils/redis-helpers';
+import { sanitizeUser } from '@core/common/utils/sanitize';
 import { config } from '@core/config/app.config';
 import { HTTPSTATUS } from '@core/config/http.config';
 import prisma from '@core/database/prisma';
@@ -108,7 +109,7 @@ export class AuthService {
       }
 
       return {
-        user: newUser,
+        user: sanitizeUser(newUser),
       };
     } catch (error) {
       if (error instanceof AppError) {
@@ -229,7 +230,7 @@ export class AuthService {
         );
 
         return {
-          user: userInfo,
+          user: sanitizeUser(userInfo),
           mfaRequired: true,
           accessToken: '',
           refreshToken: '',
@@ -273,7 +274,7 @@ export class AuthService {
       const { ...userInfo } = user;
 
       return {
-        user: userInfo,
+        user: sanitizeUser(userInfo),
         mfaRequired: false,
         accessToken,
         refreshToken,

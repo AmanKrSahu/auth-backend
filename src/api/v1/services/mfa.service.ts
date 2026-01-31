@@ -34,6 +34,7 @@ import {
   incrementMfaRateLimit,
 } from '@core/common/utils/metadata';
 import { deleteCache, getCache, setCache } from '@core/common/utils/redis-helpers';
+import { sanitizeUser } from '@core/common/utils/sanitize';
 import { config } from '@core/config/app.config';
 import { HTTPSTATUS } from '@core/config/http.config';
 import prisma from '@core/database/prisma';
@@ -289,7 +290,7 @@ export class MfaService {
       const { ...userInfo } = user;
 
       return {
-        user: userInfo,
+        user: sanitizeUser(userInfo),
         accessToken,
         refreshToken,
       };

@@ -14,6 +14,22 @@ export class OAuthController {
     this.oauthService = oauthService;
   }
 
+  /**
+   * @openapi
+   * /oauth/google/callback:
+   *   get:
+   *     tags:
+   *       - OAuth
+   *     summary: Google OAuth callback
+   *     description: Handles the callback from Google OAuth authentication.
+   *     responses:
+   *       200:
+   *         description: OAuth login successful, redirects to frontend
+   *       401:
+   *         description: Authentication failed
+   *       500:
+   *         description: Internal server error
+   */
   @AsyncHandler
   public googleCallback = async (req: Request, res: Response) => {
     const userAgent = getUserAgent(req);
