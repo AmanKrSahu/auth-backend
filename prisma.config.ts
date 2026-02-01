@@ -7,6 +7,6 @@ export default defineConfig({
     url: process.env.DATABASE_URL!,
   },
   migrations: {
-    seed: `tsx src/core/database/seed.ts`,
+    seed: 'tsup src/core/database/seed.ts --format esm --no-clean --onSuccess "node dist/seed.js"',
   },
 });
