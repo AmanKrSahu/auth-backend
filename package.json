@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/api/index.ts",
-    "build": "tsc && cp ./package.json ./dist",
+    "dev": "tsup --watch --onSuccess \"node dist/api/index.js\"",
+    "build": "tsup",
     "start": "node dist/api/index.js",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix",
@@ -66,6 +66,7 @@
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
+    "@swc/core": "^1.15.11",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.10",
@@ -93,7 +94,7 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "prisma": "7.1.0",
-    "tsx": "^4.20.6",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   }
 }
